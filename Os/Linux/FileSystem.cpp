@@ -11,7 +11,9 @@
 #include <stdio.h> // Needed for rename
 #include <string.h>
 #include <limits>
+#ifndef __VXWORKS__
 #include <sys/statvfs.h>
+#endif
 
 namespace Os {
 
@@ -21,11 +23,7 @@ namespace Os {
 
 			Status stat = OP_OK;
 
-#ifdef __VXWORKS__
-			int mkStat = ::mkdir(path);
-#else
 			int mkStat = ::mkdir(path,S_IRWXU);
-#endif
 
 			if (-1 == mkStat) {
 				switch (errno) {

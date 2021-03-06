@@ -120,7 +120,7 @@ typedef float   F32; //!< 32-bit floating point
 
 // Not ideal, but VxWorks doesn't have strnlen
 #ifdef __VXWORKS__
-NATIVE_INT_TYPE strnlen(const char *s, NATIVE_INT_TYPE maxlen);
+// NATIVE_INT_TYPE strnlen(const char *s, NATIVE_INT_TYPE maxlen);
 #endif
 
 #ifdef __cplusplus
