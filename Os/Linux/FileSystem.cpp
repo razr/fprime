@@ -140,6 +140,7 @@ namespace Os {
 				++limitCount;
 
 				if((direntData = ::readdir(dirPtr)) != NULL) {
+#ifndef __VXWORKS__
 					// We are only care about regular files
 					if(direntData->d_type == DT_REG) {
 
@@ -150,6 +151,7 @@ namespace Os {
 						Fw::EightyCharString str(direntData->d_name);
 						fileArray[arrayIdx++] = str;
 					}
+#endif
 				}
 				else {
 					// readdir failed, did it error or did we run out of files?
@@ -490,7 +492,7 @@ namespace Os {
 
 		Status getFreeSpace(const char* path, U64& totalBytes, U64& freeBytes) {
 			Status stat = OP_OK;
-
+#ifndef __VXWORKS__
 			struct statvfs fsStat;
 			int ret = statvfs(path, &fsStat);
 			if (ret) {
@@ -515,6 +517,7 @@ namespace Os {
 
 			totalBytes = (U64) fsStat.f_blocks * (U64) fsStat.f_frsize;
 			freeBytes = (U64) fsStat.f_bfree * (U64) fsStat.f_frsize;
+#endif
 			return stat;
 		}
 
@@ -549,10 +552,12 @@ namespace Os {
 			errno = 0;
 			for(limitCount = 0; limitCount < loopLimit; limitCount++) {
 				if((direntData = ::readdir(dirPtr)) != NULL) {
+#ifndef __VXWORKS__
 					// We are only counting regular files
 					if(direntData->d_type == DT_REG) {
 						fileCount++;
 					}
+#endif
 				}
 				else {
 					// readdir failed, did it error or did we run out of files?
