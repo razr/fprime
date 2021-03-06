@@ -44,7 +44,7 @@ namespace Drv {
             NATIVE_INT_TYPE m_socketOutFd; //!< Output file descriptor, always UDP
             bool m_sendUdp;
             U32 m_timeoutSeconds;
-            U32 m_timeoutMicroseconds;
+            [[maybe_unused]] U32 m_timeoutMicroseconds;
             char m_hostname[MAX_HOSTNAME_SIZE]; //!< Hostname to supply
             U16 m_port;                    //!< IP address port used
 
